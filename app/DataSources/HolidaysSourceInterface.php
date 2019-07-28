@@ -6,6 +6,9 @@ namespace App\DataSources;
 
 interface HolidaysSourceInterface
 {
-    public function __construct($country = null);
-    public function isHoliday(\DateTime $date);
+    /**
+     * @param \DateTime $date
+     * @return bool
+     */
+    public function isHoliday(\DateTime $date): bool;
 }

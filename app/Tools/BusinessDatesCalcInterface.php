@@ -4,11 +4,31 @@ namespace App\Tools;
 
 interface BusinessDatesCalcInterface
 {
-    public function calculateBusinessDate(\DateTime $date, int $delay);
+    /**
+     * @param \DateTime $date
+     * @param int $delay
+     * @return array
+     * @throws \Exception
+     */
+    public function calculateBusinessDate(\DateTime $date, int $delay): array;
 
-    public function prepareResponse($success, $request, $response, $error = null);
+    /**
+     * @param $success
+     * @param $request
+     * @param $response
+     * @return array
+     */
+    public function prepareResponse(bool $success, array $request, ?array $response, $error = null): array;
 
-    public function isBusinessDay(\DateTime $date);
+    /**
+     * @param \DateTime $date
+     * @return bool
+     */
+    public function isBusinessDay(\DateTime $date): bool;
 
-    public function isWeekendDay(\DateTime $date);
+    /**
+     * @param \DateTime $date
+     * @return bool
+     */
+    public function isWeekendDay(\DateTime $date): bool;
 }

@@ -18,12 +18,9 @@ class BusinessDatesCalc implements BusinessDatesCalcInterface
     }
 
     /**
-     * @param \DateTime $date
-     * @param int $delay
-     * @return array
-     * @throws \Exception
+     * @inheritDoc
      */
-    public function calculateBusinessDate(\DateTime $date, int $delay)
+    public function calculateBusinessDate(\DateTime $date, int $delay): array
     {
         $resultDate = clone $date;
         $segment = $delay;
@@ -71,18 +68,15 @@ class BusinessDatesCalc implements BusinessDatesCalcInterface
      * @param \DateTime $date
      * @return bool
      */
-    public function isHoliday(\DateTime $date)
+    public function isHoliday(\DateTime $date): bool
     {
         return $this->holidaysDataProvider->isHoliday($date);
     }
 
     /**
-     * @param \DateTime $date
-     * @param int $days
-     * @return int
-     * @throws \Exception
+     * @inheritDoc
      */
-    public function isWeekendDay(\DateTime $date)
+    public function isWeekendDay(\DateTime $date): bool
     {
         if (in_array($date->format('N'), self::WEEKEND_DAYS)) {
             return true;
@@ -95,17 +89,16 @@ class BusinessDatesCalc implements BusinessDatesCalcInterface
      * @param \DateTime $date
      * @return string
      */
-    private function getFormattedDate(\DateTime $date)
+    private function getFormattedDate(\DateTime $date): string
     {
         // A dirty hack for Z-timezone instead of + 0000 - PHP has no format specifier for the Z-zone
         return str_replace('+0000', 'Z', $date->format('Y-m-d\TH:i:sO'));
     }
 
     /**
-     * @param \DateTime $date
-     * @return bool
+     * @inheritDoc
      */
-    public function isBusinessDay(\DateTime $date)
+    public function isBusinessDay(\DateTime $date): bool
     {
         if (!$this->isWeekendDay($date) || $this->isHoliday($date)) {
             return false;
@@ -115,12 +108,9 @@ class BusinessDatesCalc implements BusinessDatesCalcInterface
     }
 
     /**
-     * @param $success
-     * @param $request
-     * @param $response
-     * @return mixed
+     * @inheritDoc
      */
-    public function prepareResponse($success, $request, $response, $error = null)
+    public function prepareResponse(bool $success, array $request, ?array $response, $error = null): array
     {
         $result = [
             'ok' => $success,

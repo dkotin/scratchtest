@@ -14,7 +14,10 @@ class HolidaysDumbSource implements HolidaysSourceInterface
         $this->country = $country;
     }
 
-    public function isHoliday(\DateTime $date)
+    /**
+     * @inheritDoc
+     */
+    public function isHoliday(\DateTime $date): bool
     {
         $holidaysList = $this->getHolidaysList();
         if (in_array($date->format('Y-m-d'), $holidaysList)) {
